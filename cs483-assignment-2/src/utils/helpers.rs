@@ -360,3 +360,22 @@ pub fn is_valid_password(password: &str) -> bool
     get_num_of_in_list(password, vec!['~', '!', '@', '$', '%', '^', '&']) >= 1 &&
     is_password_contains_valid_chars(password)
 }
+
+/**
+ * in:  a &str password and a &str username
+ * out: generates SQL query if username and password are valid; otherwise, generates error message
+ */
+pub fn login(username: &str, password: &str) -> ()
+{
+    if is_valid_username(username) && is_valid_password(password)
+    {
+        println("SELECT *");
+        println("FROM accounts");
+        println!("WHERE userid = {} AND pswd = {}" username, password);
+    }
+
+    else
+    {
+        println("Error: invalid username or password")   
+    }
+}
