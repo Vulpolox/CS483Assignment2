@@ -17,8 +17,10 @@ use core::str;
 // https://www.ascii-code.com/
 
 
-// in:  a &str
-// out: a bool indicating whether the input is a palindrome
+/**
+ * in:  a &str
+ * out: a bool indicating whether the input is a palindrome
+ */
 pub fn is_palindrome(input: &str) -> bool
 {
     // convert the input to lowercase
@@ -31,8 +33,10 @@ pub fn is_palindrome(input: &str) -> bool
 }
 
 
-// in:  a &str and a usize
-// out: a String with the character at the specified index removed
+/** 
+ * in:  a &str and a usize
+ * out: a String with the character at the specified index removed 
+ */
 pub fn delete_char(input: &str, index: usize) -> String
 {
     // set up variables
@@ -49,9 +53,10 @@ pub fn delete_char(input: &str, index: usize) -> String
 }
 
 
-// in:  a &str and a usize
-// out: a String with a random printable character swapped in for the 
-//      character at the specified index
+/**
+ * in:  a &str and a usize
+ * out: a String with a random printable character swapped in for the character at the specified index
+ */
 pub fn replace_char(input: &mut str, index: usize) -> String
 {
     // set up variables
@@ -71,9 +76,10 @@ pub fn replace_char(input: &mut str, index: usize) -> String
 }
 
 
-// in:  a &str and a usize
-// out: a String with a random printable character inserted at the
-//      specified index
+/**
+ * in:  a &str and a usize
+ * out: a String with a random printable character inserted at the specified index
+ */
 pub fn insert_char(input: &mut str, index: usize) -> String
 {
     // set up variables
@@ -92,8 +98,10 @@ pub fn insert_char(input: &mut str, index: usize) -> String
 }
 
 
-// in:  no args
-// out: a random printable character (ASCII [32, 127])
+/**
+ * in:  no args
+ * out: a random printable character (ASCII [32, 127])
+ */
 pub fn get_rand_printable() -> char
 {
     let mut r: ThreadRng = rand::thread_rng();
@@ -103,8 +111,10 @@ pub fn get_rand_printable() -> char
 }
 
 
-// in:  no args
-// out: a random letter (ASCII [65, 90] and [97, 122])
+/**
+ * in:  no args
+ * out: a random letter (ASCII [65, 90] and [97, 122])
+ */
 pub fn get_rand_letter() -> char
 {
     let mut r: ThreadRng = rand::thread_rng();
