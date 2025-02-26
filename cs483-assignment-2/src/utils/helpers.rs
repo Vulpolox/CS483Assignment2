@@ -187,7 +187,7 @@ pub fn get_random_value(v: Vec<usize>) -> usize
 {
     let mut r: ThreadRng = rand::thread_rng();
 
-    let len: usize = (v.len() - 1);
+    let len: usize = v.len() - 1;
 
     let index: usize = r.gen_range(0..=len);
     v[index]
@@ -212,7 +212,7 @@ pub fn delete_a_letter(input: &str) -> ()
         else
         {
             let new_accumulator: String = delete_char(&accumulator, get_random_value(letter_indices));
-            helper(new_accumulator, (remaining_recurses - 1))   
+            helper(new_accumulator, remaining_recurses - 1)   
         }
     }
 
@@ -220,7 +220,10 @@ pub fn delete_a_letter(input: &str) -> ()
 }
 
 
-
+/**
+ * in:  a &str
+ * out: a replaces 5 random letters in the string with random printable characters; prints the result to the console
+ */
 pub fn replace_a_letter(input: &str) -> ()
 {
     fn helper(accumulator: String, remaining_recurses: i32) -> String
@@ -228,14 +231,14 @@ pub fn replace_a_letter(input: &str) -> ()
         let letter_indices: Vec<usize> = find_letter_indices(&accumulator);
 
         // base cases
-        if accumulator.is_empty() { return String::from("<empty string> (why in the world would you pass an empty string to this??)"); }
+        if accumulator.is_empty() { return String::from("<empty string> Really??"); }
         else if letter_indices.len() == 0 || remaining_recurses == 0 { return accumulator; }
 
         // recursive case
         else
         {
             let new_accumulator: String = replace_char(&accumulator, get_random_value(letter_indices), get_rand_printable());
-            helper(new_accumulator, (remaining_recurses - 1))   
+            helper(new_accumulator, remaining_recurses - 1)   
         }
     }
 
@@ -243,23 +246,117 @@ pub fn replace_a_letter(input: &str) -> ()
 }
 
 
-
+/**
+ * in:  a &str
+ * out: a inserts 5 random capital/lowercase letters into the string at random positions; prints the result to the console
+ */
 pub fn insert_a_letter(input: &str) -> ()
 {
     fn helper(accumulator: String, remaining_recurses: i32) -> String
     {
-        // base
+        // base case
         if remaining_recurses == 0 { return accumulator; }
 
         // recursive case
         else
         {
             let new_accumulator: String = insert_char(&accumulator, get_random_index(accumulator.clone()), get_rand_letter());
-            helper(new_accumulator, (remaining_recurses - 1))
+            helper(new_accumulator, remaining_recurses - 1)
         }
     }
 
     println!("MODIFIED STRING: {}", helper(String::from(input), 5))
 }
 
+
 // ------- PROBLEM #3 ------------------------------------------------------------
+
+// a bunch of functions that slightly modify library functions
+pub fn modified_is_alphanumeric(c: char) -> bool { c.is_alphanumeric() }
+pub fn modified_is_numeric(c: char) -> bool { c.is_numeric() }
+pub fn modified_is_upercase(c: char) -> bool { c.is_uppercase() }
+pub fn modified_is_lowercase(c: char) -> bool { c.is_lowercase() }
+
+
+/**
+ * in:  a &str and a function which takes a char and returns a boolean
+ * out: counts and returns the number of chars in the string for which the function returns true when passed
+ */
+pub fn get_num_of(input: &str, func: fn(char) -> bool) -> usize
+{
+    let mut counter: usize = 0;
+
+    for char in String::from(input).chars()
+    {
+        if func(char) { counter += 1; }
+    }
+
+    counter
+}
+
+
+/**
+ * in:  a char and a vector of chars
+ * out: if the char is in the vector, true; otherwise false
+ */
+pub fn is_in(c: char, v: Vec<char>) -> bool
+{
+    for char in v
+    {
+        if char == c { return true; }
+    }
+    false
+}
+
+
+/**
+ * in:  a &str and a vector of allowed or denied chars
+ * out: returns the number of chars the input string has that match those in the vector
+ */
+pub fn get_num_of_in_list(input: &str, allow_deny_list: Vec<char>) -> usize
+{
+    let mut counter: usize = 0;
+
+    for char in String::from(input).chars()
+    {
+        if is_in(char, allow_deny_list.clone()) { counter += 1; }
+    }
+
+    counter
+}
+
+
+/**
+ * in:  a &str password
+ * out: returns true if the password contains only valid characters; otherwise false
+ */
+pub fn is_password_contains_valid_chars(password: &str) -> bool
+{
+    password.len() == get_num_of(password, modified_is_alphanumeric) +
+                      get_num_of_in_list(password, vec!['~', '!', '@', '$', '%', '^', '&'])
+}
+
+
+/**
+ * in:  a &str username
+ * out: returns true if the username is valid; otherwise false
+ */
+pub fn is_valid_username(username: &str) -> bool
+{
+    get_num_of_in_list(username, vec!['=', '\'']) == 0
+}
+
+
+/**
+ * in:  a &str password
+ * out: returns true if the password is valid, otherwise false
+ */
+pub fn is_valid_password(password: &str) -> bool
+{
+    password.len() >= 8 &&
+    get_num_of(password, modified_is_numeric) >= 1 &&
+    get_num_of(password, modified_is_upercase) >= 1 &&
+    get_num_of(password, modified_is_lowercase) >= 1 &&
+    get_num_of_in_list(password, vec!['~', '!', '@', '$', '%', '^', '&']) >= 1 &&
+    is_password_contains_valid_chars(password)
+}

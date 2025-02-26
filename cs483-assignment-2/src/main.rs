@@ -1,11 +1,12 @@
-use utils::helpers::{delete_a_letter, insert_a_letter, replace_a_letter};
-
 mod utils;
 
 fn main() 
 {
-    delete_a_letter("Hello World");
-    insert_a_letter("Hello World");
-    replace_a_letter("Hello World");
+    utils::helpers::delete_a_letter("Hello World");
+    utils::helpers::insert_a_letter("Hello World");
+    utils::helpers::replace_a_letter("Hello World");
+
+    println!("{}", utils::helpers::is_valid_password("Foxgfdsgfsgfdsg!8"));
+    println!("{}", utils::helpers::is_valid_username(""));
 
 }
