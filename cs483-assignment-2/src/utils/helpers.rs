@@ -1,10 +1,11 @@
-use rand::prelude::*;
+use std::rand;
+use std::rand::rng;
 
 // filter function documentation
 // https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.filter
 
-// rng documentation
-// https://docs.rs/rand/latest/rand/
+// rng learning source
+// https://stackoverflow.com/questions/19671845/how-can-i-generate-a-random-number-within-a-range-in-rust
 
 use core::str;
 
