@@ -26,12 +26,19 @@ use core::str;
  */
 pub fn is_palindrome(input: &str) -> bool
 {
+    // if input string is empty, return false to prevent errors
+    if input.is_empty() { return false; }
+
     // convert the input to lowercase
     let lowercase_input: String = input.to_lowercase();
     // create a new string that only contains alphanumeric characters
     let filtered_input: String = lowercase_input.chars()
                                                 .filter(|x: &char| (x.is_alphabetic() || x.is_numeric())).collect::<String>();
-    // return boolean got from comparison of the two strings
+    
+    // if the filtered string is empty (if all chars are non-alphanumeric), return false
+    if filtered_input.is_empty() { return false; }
+
+    // otherwise, return boolean got from comparison of the string and its reverse
     filtered_input == filtered_input.chars().rev().collect::<String>()
 }
 
@@ -369,13 +376,13 @@ pub fn login(username: &str, password: &str) -> ()
 {
     if is_valid_username(username) && is_valid_password(password)
     {
-        println("SELECT *");
-        println("FROM accounts");
-        println!("WHERE userid = {} AND pswd = {}" username, password);
+        println!("SELECT *");
+        println!("FROM accounts");
+        println!("WHERE userid = {} AND pswd = {}", username, password);
     }
 
     else
     {
-        println("Error: invalid username or password")   
+        println!("Error: invalid username or password")   
     }
 }
