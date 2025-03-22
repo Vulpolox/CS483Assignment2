@@ -24,23 +24,23 @@ use core::str;
  * in:  a &str
  * out: a bool indicating whether the input is a palindrome
  */
-pub fn is_palindrome(input: &str) -> bool
-{
-    // if input string is empty, return false to prevent errors
-    if input.is_empty() { return false; }
-
-    // convert the input to lowercase
-    let lowercase_input: String = input.to_lowercase();
-    // create a new string that only contains alphanumeric characters
-    let filtered_input: String = lowercase_input.chars()
-                                                .filter(|x: &char| (x.is_alphabetic() || x.is_numeric())).collect::<String>();
-    
-    // if the filtered string is empty (if all chars are non-alphanumeric), return false
-    if filtered_input.is_empty() { return false; }
-
-    // otherwise, return boolean got from comparison of the string and its reverse
-    filtered_input == filtered_input.chars().rev().collect::<String>()
-}
+pub fn is_palindrome(input: &str) -> bool                                                                                           //
+{                                                                                                                                   //
+    // if input string is empty, return false to prevent errors                                                                     //
+    if input.is_empty() { return false; }                                                                                           //
+                                                                                                                                    //
+    // convert the input to lowercase                                                                                               //
+    let lowercase_input: String = input.to_lowercase();                                                                             //  -------------------+ 'A
+    // create a new string that only contains alphanumeric characters                                                               //                     |
+    let filtered_input: String = lowercase_input.chars()                                                                   // --------------+ 'B ||
+                                                .filter(|x: &char| (x.is_alphabetic() || x.is_numeric())).collect::<String>();      //               |     |
+                                                                                                                                    //               |     |
+    // if the filtered string is empty (if all chars are non-alphanumeric), return false                                            //               |     |
+    if filtered_input.is_empty() { return false; }                                                                                  //               |     |
+                                                                                                                                    //               |     |
+    // otherwise, return boolean got from comparison of the string and its reverse                                                  //               |     |
+    filtered_input == filtered_input.chars().rev().collect::<String>()                                                              //               |     |
+}                                                                                                                                   //  -------------+-----+
 
 
 // ------- PROBLEM #2 ------------------------------------------------------------
